@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: redis
+  namespace: shopsphere
+
+  labels:
+    app: redis
+    app.kubernetes.io/name: redis
+    app.kubernetes.io/component: cache
+    app.kubernetes.io/part-of: shopsphere
+    app.kubernetes.io/managed-by: kubectl
+
+spec:
+  replicas: 1
+
+  revisionHistoryLimit: 5
+
+  strategy:
+    type: RollingUpdate
+
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+
+  selector:
+    matchLabels:
+      app: redis
+
+  template:
+
+    metadata:
+
+      labels:
+        app: redis
+        app.kubernetes.io/name: redis
+        app.kubernetes.io/component: cache
+        app.kubernetes.io/part-of: shopsphere
+
+    spec:
+
+      terminationGracePeriodSeconds: 30
+
+      containers:
+
+      - name: redis
+
+        image: redis:7.2-alpine
+
+        imagePullPolicy: IfNotPresent
+
+        ports:
+        - containerPort: 6379
+
+        resources:
+
+          requests:
+            cpu: 100m
+            memory: 128Mi
+
+          limits:
+            cpu: 250m
+            memory: 256Mi
+
+        livenessProbe:
+
+          tcpSocket:
+            port: 6379
+
+          initialDelaySeconds: 20
+          periodSeconds: 10
+          timeoutSeconds: 3
+          failureThreshold: 3
+
+        readinessProbe:
+
+          tcpSocket:
+            port: 6379
+
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3

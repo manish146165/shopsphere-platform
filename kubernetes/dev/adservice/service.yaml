@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: adservice
+  namespace: shopsphere
+
+  labels:
+    app: adservice
+    app.kubernetes.io/name: adservice
+    app.kubernetes.io/component: backend
+    app.kubernetes.io/part-of: shopsphere
+
+spec:
+
+  selector:
+    app: adservice
+
+  ports:
+
+  - name: grpc
+    port: 9555
+    targetPort: 9555
+    protocol: TCP
+
+  type: ClusterIP

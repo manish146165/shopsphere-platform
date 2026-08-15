@@ -1,0 +1,94 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: cartservice
+  namespace: shopsphere
+
+  labels:
+    app: cartservice
+    app.kubernetes.io/name: cartservice
+    app.kubernetes.io/component: backend
+    app.kubernetes.io/part-of: shopsphere
+    app.kubernetes.io/managed-by: kubectl
+
+spec:
+
+  replicas: 2
+
+  revisionHistoryLimit: 5
+
+  strategy:
+    type: RollingUpdate
+
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+
+  selector:
+    matchLabels:
+      app: cartservice
+
+  template:
+
+    metadata:
+
+      labels:
+        app: cartservice
+        app.kubernetes.io/name: cartservice
+        app.kubernetes.io/component: backend
+        app.kubernetes.io/part-of: shopsphere
+
+    spec:
+
+      terminationGracePeriodSeconds: 30
+
+      containers:
+
+      - name: cartservice
+
+        image: 221237748109.dkr.ecr.ap-south-1.amazonaws.com/shopsphere:cartservice-v1
+
+        imagePullPolicy: Always
+
+        ports:
+        - name: grpc
+          containerPort: 7070
+
+        env:
+
+        - name: REDIS_ADDR
+          valueFrom:
+            configMapKeyRef:
+              name: shopsphere-config
+              key: REDIS_ADDR
+
+        resources:
+
+          requests:
+            cpu: 100m
+            memory: 128Mi
+
+          limits:
+            cpu: 250m
+            memory: 256Mi
+
+        readinessProbe:
+
+          tcpSocket:
+            port: 7070
+
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+
+        livenessProbe:
+
+          tcpSocket:
+            port: 7070
+
+          initialDelaySeconds: 20
+          periodSeconds: 10
+          timeoutSeconds: 3
+          failureThreshold: 3

@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: ConfigMap
+
+metadata:
+  name: shopsphere-config
+  namespace: shopsphere
+
+data:
+
+  ENVIRONMENT: "dev"
+
+  LOG_LEVEL: "Information"
+
+  PORT: "3550"
+
+  REDIS_ADDR: "redis:6379"
+
+  PRODUCT_CATALOG_SERVICE_ADDR: "productcatalogservice:3550"
+
+  CURRENCY_SERVICE_ADDR: "currencyservice:7000"
+
+  CART_SERVICE_ADDR: "cartservice:7070"
+
+  RECOMMENDATION_SERVICE_ADDR: "recommendationservice:8080"
+
+  CHECKOUT_SERVICE_ADDR: "checkoutservice:5050"
+
+  SHIPPING_SERVICE_ADDR: "shippingservice:50051"
+
+  PAYMENT_SERVICE_ADDR: "paymentservice:50051"
+
+  EMAIL_SERVICE_ADDR: "emailservice:8080"
+
+  AD_SERVICE_ADDR: "adservice:9555"
+
+  DISABLE_PROFILER: "true"
+
+  DISABLE_STATS: "1"
+
+  DISABLE_TRACING: "1"
+
+  OTEL_EXPORTER_OTLP_ENDPOINT: "http://otel-collector:4317"
+
+  OTEL_SERVICE_NAME: "shopsphere"
+
+  OTEL_EXPORTER_OTLP_PROTOCOL: "grpc"
+
+  OTEL_RESOURCE_ATTRIBUTES: "deployment.environment=dev"

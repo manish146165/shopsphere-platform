@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loadgenerator
+  namespace: shopsphere
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: loadgenerator
+  template:
+    metadata:
+      labels:
+        app: loadgenerator
+    spec:
+      containers:
+        - name: loadgenerator
+          image: 221237748109.dkr.ecr.ap-south-1.amazonaws.com/shopsphere:loadgenerator-v1
+          imagePullPolicy: Always
+          env:
+            - name: FRONTEND_ADDR
+              value: "k8s-shopsphe-shopsphe-4ce52b05c4-233725498.ap-south-1.elb.amazonaws.com"
+
+            - name: USERS
+              value: "100"
+
+            - name: RATE
+              value: "10"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
