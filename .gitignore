@@ -16,6 +16,10 @@ yarn-error.log*
 dist/
 build/
 
+# Gradle
+.gradle/
+**/.gradle/
+
 # Logs
 *.log
 
@@ -34,6 +38,3 @@ secret.yaml
 .terraform/
 *.tfstate
 *.tfstate.*
-
-# Helm sensitive values
-helm/*-values.yaml
