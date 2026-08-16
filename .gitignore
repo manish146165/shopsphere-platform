@@ -1,0 +1,39 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# SonarQube
+.scannerwork/
+
+# Build
+dist/
+build/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Kubernetes secrets
+*-secret.yaml
+secret.yaml
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+
+# Helm sensitive values
+helm/*-values.yaml
