@@ -1,0 +1,39 @@
+name: ShopSphere CI
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - feature/**
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+
+  ci:
+    name: Build and Validate
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Show repository structure
+        run: |
+          echo "Repository:"
+          pwd
+          echo
+          echo "Application services:"
+          find application -maxdepth 2 -type f | head -50
+
+      - name: Check Git status
+        run: |
+          git status
+
+      - name: CI completed
+        run: |
+          echo "ShopSphere CI pipeline executed successfully."
