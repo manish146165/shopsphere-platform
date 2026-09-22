@@ -47,7 +47,7 @@ spec:
 
       - name: adservice
 
-        image: 221237748109.dkr.ecr.ap-south-1.amazonaws.com/shopsphere:adservice-v1
+        image: 112188881127.dkr.ecr.us-west-2.amazonaws.com/shopsphere:adservice-v1
 
         imagePullPolicy: Always
 
