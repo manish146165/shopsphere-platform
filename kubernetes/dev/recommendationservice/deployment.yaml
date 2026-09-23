@@ -47,7 +47,7 @@ spec:
 
       - name: recommendationservice
 
-        image: 112188881127.dkr.ecr.us-west-2.amazonaws.com/shopsphere:recommendationservice-v1
+        image: 112188881127.dkr.ecr.us-west-2.amazonaws.com/shopsphere:recommendationservice-7
 
         imagePullPolicy: Always
 
